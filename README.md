@@ -1,14 +1,7 @@
 # Minimum Viable Product for Kairos - A native Casper Transaction Zk Rollup System
-This repo contains a complete Kairos demo that is used to rollup a limited amount of Transactions for demo purposes.
+This repo contains a premature demo version of a Casper native transaction rollup system. Many design decisions of this repository have changed and it is not up to date with the [official Kairos project](https://github.com/cspr-rad/kairos). 
 
-Kairos-lab is a private research branch maintained by @jonas089 with @Rom3dius as a collaborator. The goal is to quickly demo the Kairos rollup system and test new state implementations, trees, proving backends, contracts and L1 target architecture. 
-
-MVP is a simple, centralized, functional ZK rollup implementation that utilizes an implementation of a Delta Merkle Tree and Risc0 as a proving backend.
-
-In order to accelerate development processes, this version is built in pure Rust and the storage component is effectively a serialized struct.
-
-Production Kairos should support a long transaction history and high througput, but for the scope of a POC / MVP it is advisable to focus on the core components of the rollup, which is exactly what this repo is about.
-
+Kairos-lab is a private research branch by @jonas089 with @Rom3dius as a collaborator. The goal was to quickly demo the Kairos rollup system and test new state implementations, trees, proving backends, contracts and L1 target architecture. 
 
 ### Testing
 In order to test, make sure you have [cargo-nextest](https://nexte.st) and [docker-compose](https://docs.docker.com/compose/install/#scenario-two-install-the-compose-plugin) installed.
