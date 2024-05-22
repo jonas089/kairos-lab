@@ -48,7 +48,7 @@ fn generate_proof(){
         .apply_batch(batch.iter().cloned())
         .expect("Failed to apply batch");
 
-    let new_root_hash = account_trie
+    account_trie
         .txn
         .commit(&mut DigestHasher::<sha2::Sha256>::default())
         .expect("Failed to commit transaction");
@@ -133,7 +133,7 @@ fn generate_proof_groth16() {
         .apply_batch(batch.iter().cloned())
         .expect("Failed to apply batch");
 
-    let new_root_hash = account_trie
+    account_trie
         .txn
         .commit(&mut DigestHasher::<sha2::Sha256>::default())
         .expect("Failed to commit transaction");
@@ -163,15 +163,9 @@ fn generate_proof_groth16() {
     let composite_receipt = receipt.inner.composite().unwrap();
     let succinct_receipt = prover.compress(composite_receipt).unwrap();
     let journal = session.journal.unwrap().bytes;
-
-    println!("identity_p254");
     let ident_receipt = identity_p254(&succinct_receipt).unwrap();
     let seal_bytes = ident_receipt.get_seal_bytes();
-
-    println!("stark-to-snark");
     let seal = stark_to_snark(&seal_bytes).unwrap().to_vec();
-
-    println!("Receipt");
     let receipt = Receipt::new(
         InnerReceipt::Compact(CompactReceipt { seal, claim }),
         journal,
