@@ -1,7 +1,4 @@
 #![no_main]
-extern crate alloc;
-use alloc::string::ToString;
-use alloc::{vec, vec::Vec};
 use casper_contract::{
     contract_api::{runtime, storage, system},
     unwrap_or_revert::UnwrapOrRevert,
@@ -98,9 +95,6 @@ pub extern "C" fn submit_batch(){
     };
 
     // let journal = proof.receipt.journal.decode().unwrap();
-    // todo: deserialize using byteorder crate (no_std)
-    // todo: verify using host function
-    // todo: deserialize journal
     // todo: update root
 }
 
