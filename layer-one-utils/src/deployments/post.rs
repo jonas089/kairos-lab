@@ -1,10 +1,9 @@
 use casper_client::{rpcs::results::PutDeployResult, types::{Deploy, DeployBuilder, ExecutableDeployItem, Timestamp}, JsonRpcId};
 use casper_types::{bytesrepr::{Bytes, ToBytes}, crypto::SecretKey, runtime_args, ContractHash, RuntimeArgs};
 use crate::constants::{CCTL_DEFAULT_NODE_ADDRESS, CCTL_DEFAULT_NODE_RPC_PORT, DEFAULT_CHAIN_NAME, DEFAULT_PAYMENT_AMOUNT, SECRET_KEY_PATH, VERIFIER_CONTRACT_HASH};
-use kairos_risc0_types::{KairosDeltaTree, hash_bytes, TransactionBatch, Deposit, Withdrawal, Transfer, RiscZeroProof, CircuitJournal, CircuitArgs};
 use risc0_zkvm::{default_prover, Receipt, ExecutorEnv};
-use methods::{
-    NATIVE_CSPR_TX_ELF, NATIVE_CSPR_TX_ID
+use circuits::{
+    PROVE_BATCH_ELF, PROVE_BATCH_ID
 };
 use bincode;
 use std::fs;

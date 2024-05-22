@@ -11,7 +11,6 @@ use casper_types::{
     bytesrepr::{Bytes, ToBytes},
     CLValue, Key, URef,
 };
-use kairos_risc0_types::{Deposit, KairosDeltaTree, RiscZeroProof};
 use serde_json;
 
 pub async fn query_state_root_hash(node_address: &str, rpc_port: &str) -> Digest {

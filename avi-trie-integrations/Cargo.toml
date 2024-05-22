@@ -1,0 +1,14 @@
+[package]
+name = "avi-trie-integrations"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+test-logic = []
+std = []
+serde = ["dep:serde", "kairos-trie/serde"]
+
+[dependencies]
+kairos-trie = {git="https://github.com/cspr-rad/kairos-trie", default-features=false, features=["serde"]}
+sha2 = { version = "0.10", default-features = false }
+serde = { version = "1", default-features = false, features = ["derive", "alloc"], optional = true }

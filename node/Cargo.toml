@@ -12,7 +12,6 @@ deadpool = {version = "0.10.0", default-features = false, features = ["managed"]
 deadpool-diesel = {version = "0.5.0", features = ["postgres"]}
 diesel = {version = "2.1.4", features = ["postgres", "serde_json", "chrono", "numeric"]}
 fern = "0.6.2"
-kairos-risc0-types = { version = "0.1.0", path = "../kairos-risc0-types", features=["kairos-delta-tree"] }
 risc0-zkvm = {version="0.21.0", default-features=false, features=["prove"]}
 layer-one-utils = {path="../layer-one-utils"}
 lazy_static = "1.4.0"
@@ -29,6 +28,5 @@ axum-otel-metrics = {version = "0.8.0", optional = true}
 cargo-nextest = "0.9.67"
 
 [features]
-default = ["delta-tree", "metrics"]
-delta-tree = []
+default = ["metrics"]
 metrics = ["axum-otel-metrics"]

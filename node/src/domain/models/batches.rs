@@ -1,4 +1,4 @@
-use diesel::{ExpressionMethods, Insertable, QueryDsl, Queryable, Selectable, SelectableHelper};
+/*use diesel::{ExpressionMethods, Insertable, QueryDsl, Queryable, Selectable, SelectableHelper};
 use diesel::RunQueryDsl;
 use bincode;
 use chrono::{Utc, NaiveDateTime};
@@ -45,4 +45,4 @@ pub async fn insert(pool: Pool, new_batch: TransactionBatch) -> Result<BatchMode
             })
         .await??;
     Ok(res)
-}
+}*/

@@ -80,7 +80,7 @@ async fn main() {
     }
 
     // Apply database migrations
-    run_migrations(&pool).await;
+    // run_migrations(&pool).await;
     log::debug!("Ran database migrations!");
 
     // Setup application state
@@ -132,10 +132,10 @@ async fn shutdown_signal() {
 // }
 
 // Function to run database migrations
-async fn run_migrations(pool: &Pool) {
-    let conn = pool.get().await.unwrap();
-    conn.interact(|conn| conn.run_pending_migrations(MIGRATIONS).map(|_| ()))
-        .await
-        .unwrap()
-        .unwrap();
-}
+// async fn run_migrations(pool: &Pool) {
+//     let conn = pool.get().await.unwrap();
+//     conn.interact(|conn| conn.run_pending_migrations(MIGRATIONS).map(|_| ()))
+//         .await
+//         .unwrap()
+//         .unwrap();
+// }

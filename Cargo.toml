@@ -1,8 +1,8 @@
 [workspace]
 resolver = "2"
 # Currently guest only exists for the workspace configuration not to break
-members = ["methods/native-cspr-tx", "methods/guest", "kairos-risc0-types", "kairos-delta-tree", "node", "layer-one-utils", "kairos-risc0-types", "kairos-delta-tree"]
-exclude = ["contracts"]
+members = ["node", "layer-one-utils", "avi-trie-integrations"]
+exclude = ["kairos-contracts", "risc0-trie/methods"]
 
 # Always optimize; building and running the guest takes much longer without optimization.
 [profile.dev]

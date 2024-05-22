@@ -1,4 +1,4 @@
-use diesel::{ExpressionMethods, Insertable, QueryDsl, Queryable, Selectable, SelectableHelper};
+/*use diesel::{ExpressionMethods, Insertable, QueryDsl, Queryable, Selectable, SelectableHelper};
 use diesel::RunQueryDsl;
 use kairos_risc0_types::{ToBigDecimal, Deposit};
 use chrono::{Utc, NaiveDateTime};
@@ -83,4 +83,4 @@ pub async fn get_all(pool: Pool, filter: DepositFilter) -> Result<Vec<DepositMod
         })
         .await??;
     Ok(res)
-}
+}*/
