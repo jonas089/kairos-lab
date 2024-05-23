@@ -12,6 +12,7 @@ use transactions::{KairosTransaction, Deposit, Signed, Withdraw};
 pub mod account_trie;
 pub mod transactions;
 
+
 /// `ProofInputs` contains the minimum logical inputs needed to apply a batch of transactions.
 ///
 /// The trie snapshot holds the pre-batch merkle root.
