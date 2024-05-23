@@ -8,3 +8,10 @@ In order to test, make sure you have [cargo-nextest](https://nexte.st) and [dock
 You might also need the [jq](https://jqlang.github.io/jq/) cli tool. It comes preinstalled on most linux distros.
 Executing `cargo nextest run` will automatically spawn a network using CCTL and a postgresql database.
 The environment will stay running after test execution ends until explicitly stopped using the command `docker-compose down` or `docker compose down`. The reasoning behind this is to keep the time waiting on the images to spin up to a minimum while developing and testing the code.
+
+### Setting up Risc0
+
+```
+cargo binstall cargo-risczero@1.0.0-rc.5
+cargo risczero install
+```
