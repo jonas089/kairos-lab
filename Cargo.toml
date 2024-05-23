@@ -2,7 +2,7 @@
 resolver = "2"
 # Currently guest only exists for the workspace configuration not to break
 members = ["node", "layer-one-utils", "kairos-trie-integrations", "kairos-contracts/demo-contract-tests"]
-exclude = ["kairos-contracts/demo-contract", "kairos-risc0-trie/methods"]
+exclude = ["kairos-contracts/demo-contract", "kairos-risc0-trie"]
 
 # Always optimize; building and running the guest takes much longer without optimization.
 [profile.dev]
