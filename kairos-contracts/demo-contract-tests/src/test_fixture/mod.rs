@@ -4,7 +4,7 @@ use casper_engine_test_support::{
 };
 use casper_execution_engine::storage::global_state::in_memory::InMemoryGlobalState;
 use casper_types::{
-    bytesrepr::ToBytes, account::AccountHash, crypto::{PublicKey, SecretKey}, runtime_args, system::{handle_payment::ARG_TARGET, mint::ARG_ID}, Key, RuntimeArgs, U256, contracts::NamedKeys
+    account::AccountHash, bytesrepr::{Bytes, FromBytes, ToBytes}, contracts::NamedKeys, crypto::{PublicKey, SecretKey}, runtime_args, system::{handle_payment::ARG_TARGET, mint::ARG_ID}, Key, RuntimeArgs, U256
 };
 use std::path::Path;
 use base64::{engine::general_purpose::STANDARD, Engine};
@@ -70,8 +70,8 @@ impl TestContext {
     }
     
     pub fn submit_batch(&mut self, payload: Vec<u8>, sender: AccountHash){
-        let session_args = runtime_args!{
-            "risc0_receipt" => payload
+        let session_args: RuntimeArgs = runtime_args!{
+            "risc0_receipt" => Bytes::from(payload)
         };
         let submit_batch_request = ExecuteRequestBuilder::contract_call_by_hash(
             sender,
