@@ -4,12 +4,11 @@ use casper_engine_test_support::{
 };
 use casper_execution_engine::storage::global_state::in_memory::InMemoryGlobalState;
 use casper_types::{
-    account::AccountHash, bytesrepr::{Bytes, FromBytes, ToBytes}, contracts::NamedKeys, crypto::{PublicKey, SecretKey}, runtime_args, system::{handle_payment::ARG_TARGET, mint::ARG_ID}, Key, RuntimeArgs, U256
+    account::AccountHash, bytesrepr::Bytes, crypto::{PublicKey, SecretKey}, runtime_args, system::{handle_payment::ARG_TARGET, mint::ARG_ID}, Key, RuntimeArgs
 };
 use std::path::Path;
-use base64::{engine::general_purpose::STANDARD, Engine};
 use casper_engine_test_support::{InMemoryWasmTestBuilder, PRODUCTION_RUN_GENESIS_REQUEST};
-use casper_types::{ContractHash, URef};
+use casper_types::ContractHash;
 use std::env;
 
 pub const ADMIN_SECRET_KEY: [u8; 32] = [1u8; 32];
@@ -47,7 +46,7 @@ impl TestContext {
             .map(ContractHash::new)
             .expect("must get contract hash");
 
-        let contract = builder
+        builder
             .get_contract(contract_hash)
             .expect("should have contract");
     
@@ -120,11 +119,6 @@ pub fn create_funded_account_for_secret_key_bytes(
     .build();
     builder.exec(transfer).expect_success().commit();
     account_hash
-}
-
-fn make_dictionary_item_key(admin: Key) -> String {
-    let preimage = admin.to_bytes().unwrap();
-    STANDARD.encode(preimage)
 }
 
 // Creates a dummy account and transfer funds to it
