@@ -19,7 +19,6 @@ use utils::errors::DepositError;
 use utils::events::Deposit;
 use utils::get_immediate_caller;
 use risc0_zkvm::Receipt;
-use serde::{Serialize, Deserialize};
 use borsh::{BorshSerialize, BorshDeserialize, from_slice};
 
 // This entry point is called once when the contract is installed.
