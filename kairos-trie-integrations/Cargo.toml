@@ -1,5 +1,5 @@
 [package]
-name = "avi-trie-integrations"
+name = "kairos-trie-integrations"
 version = "0.1.0"
 edition = "2021"
 

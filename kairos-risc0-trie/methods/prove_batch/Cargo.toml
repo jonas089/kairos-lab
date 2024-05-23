@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 # If you want to try (experimental) std support, add `features = [ "std" ]` to risc0-zkvm
 risc0-zkvm = { version="0.21.0", default-features=false }
-avi-trie-integrations = {path="../../../avi-trie-integrations", features=["serde"]}
+kairos-trie-integrations = {path="../../../kairos-trie-integrations", features=["serde"]}

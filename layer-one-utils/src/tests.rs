@@ -9,7 +9,7 @@ pub struct Proof {
 fn generate_proof(){
     extern crate alloc;
     use alloc::rc::Rc;
-    use avi_trie_integrations::{ProofInputs, transactions::*, account_trie::AccountTrie, account_trie::Account};
+    use kairos_trie_integrations::{ProofInputs, transactions::*, account_trie::AccountTrie, account_trie::Account};
     use circuits::{PROVE_BATCH_ELF, PROVE_BATCH_ID};
     use kairos_trie::{TrieRoot, stored::memory_db::MemoryDb, DigestHasher};
     let alice_public_key = "alice_public_key".as_bytes().to_vec();

@@ -19,6 +19,8 @@ use utils::errors::DepositError;
 use utils::events::Deposit;
 use utils::get_immediate_caller;
 use risc0_zkvm::Receipt;
+use serde::{Serialize, Deserialize};
+use borsh::{BorshSerialize, BorshDeserialize, from_slice};
 
 // This entry point is called once when the contract is installed.
 // The contract purse will be created in contract context so that it is "owned" by the contract
@@ -76,24 +78,21 @@ pub extern "C" fn deposit() {
     casper_event_standard::emit(new_deposit_record);
 }
 
-#[derive(Debug, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
 pub struct Proof {
     pub receipt: Receipt,
     pub program_id: [u32;8],
 }
 
-
-
 #[no_mangle]
 pub extern "C" fn submit_batch(){
     let proof_serialized: Vec<u8> = runtime::get_named_arg(RUNTIME_ARG_RECEIPT);
-    let proof: Proof = bincode::deserialize(&proof_serialized).unwrap();
+    let proof: Proof = from_slice(&proof_serialized).unwrap();
     match proof.receipt.verify(proof.program_id){
         Ok(_) => {},
         // replace ApiError with meaningful UserError
         Err(_) => runtime::revert(ApiError::InvalidArgument)
     };
-
     // let journal = proof.receipt.journal.decode().unwrap();
     // todo: update root
 }
@@ -124,8 +123,8 @@ pub extern "C" fn call() {
     let contract_hash_key = Key::from(contract_hash);
     runtime::put_key(KAIROS_CONTRACT_HASH, contract_hash_key);
 
-    let init_args = runtime_args! {};
     // Call the init entry point of the newly installed contract
     // This will setup the deposit purse and initialize Event Schemas (CES)
+    let init_args = runtime_args! {};
     runtime::call_contract::<()>(contract_hash, "init", init_args);
 }
