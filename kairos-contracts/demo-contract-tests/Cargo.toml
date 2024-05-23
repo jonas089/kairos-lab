@@ -1,8 +1,7 @@
 [package]
 name = "demo-contract-tests"
-version.workspace = true
-edition.workspace = true
-license.workspace = true
+version = "0.1.0"
+edition = "2021"
 
 [dependencies]
 casper-engine-test-support = {version="7.0.0", default-features=false}
@@ -10,4 +9,11 @@ casper-execution-engine = {version="7.0.0", default-features=false}
 casper-contract = {version="4.0.0", default-features=false}
 casper-types = {version="4.0.1", default-features=false}
 base64 = { version = "0.21.2", default-features = false, features = ["alloc"] }
+risc0-zkvm = {git="https://github.com/jonas089/risc0-borsh"}
+serde = {version="1", default-features=false, features=["derive"]}
 rand = "0.8"
+kairos-trie-integrations = {path="../../kairos-trie-integrations", features=["serde"]}
+kairos-trie = {git="https://github.com/cspr-rad/kairos-trie", default-features=false, features=["serde"]}
+circuits = {path="../../kairos-risc0-trie/methods"}
+borsh = {version="1.5.0", features=["derive"]}
+sha2 = {version = "0.10", default-features = false}

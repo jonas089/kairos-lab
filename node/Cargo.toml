@@ -12,7 +12,7 @@ deadpool = {version = "0.10.0", default-features = false, features = ["managed"]
 deadpool-diesel = {version = "0.5.0", features = ["postgres"]}
 diesel = {version = "2.1.4", features = ["postgres", "serde_json", "chrono", "numeric"]}
 fern = "0.6.2"
-risc0-zkvm = {version="0.21.0", default-features=false, features=["prove"]}
+risc0-zkvm = {git="https://github.com/jonas089/risc0-borsh", default-features=false, features=["prove"]}
 layer-one-utils = {path="../layer-one-utils"}
 lazy_static = "1.4.0"
 log = "0.4.21"

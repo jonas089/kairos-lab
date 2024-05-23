@@ -68,6 +68,23 @@ impl TestContext {
             contract_package_key: contract_package.into(),
         }
     }
+    
+    pub fn submit_batch(&mut self, payload: Vec<u8>, sender: AccountHash){
+        let session_args = runtime_args!{
+            "risc0_receipt" => payload
+        };
+        let submit_batch_request = ExecuteRequestBuilder::contract_call_by_hash(
+            sender,
+            self.contract_hash,
+            "submit_batch",
+            session_args
+        ).build();
+
+        self.builder
+            .exec(submit_batch_request)
+            .commit()
+            .expect_success();
+    }
 }
 
 pub fn install_wasm_with_args(

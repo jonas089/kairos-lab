@@ -78,7 +78,7 @@ pub extern "C" fn deposit() {
     casper_event_standard::emit(new_deposit_record);
 }
 
-#[derive(Debug, Serialize, Deserialize, BorshSerialize, BorshDeserialize)]
+#[derive(Debug, BorshSerialize, BorshDeserialize)]
 pub struct Proof {
     pub receipt: Receipt,
     pub program_id: [u32;8],
