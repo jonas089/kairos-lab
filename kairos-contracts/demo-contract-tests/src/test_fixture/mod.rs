@@ -2,14 +2,19 @@ use casper_engine_test_support::{
     ExecuteRequestBuilder, WasmTestBuilder, ARG_AMOUNT, DEFAULT_ACCOUNT_ADDR,
     DEFAULT_ACCOUNT_INITIAL_BALANCE,
 };
-use casper_execution_engine::storage::global_state::in_memory::InMemoryGlobalState;
-use casper_types::{
-    account::AccountHash, bytesrepr::Bytes, crypto::{PublicKey, SecretKey}, runtime_args, system::{handle_payment::ARG_TARGET, mint::ARG_ID}, Key, RuntimeArgs
-};
-use std::path::Path;
 use casper_engine_test_support::{InMemoryWasmTestBuilder, PRODUCTION_RUN_GENESIS_REQUEST};
+use casper_execution_engine::storage::global_state::in_memory::InMemoryGlobalState;
 use casper_types::ContractHash;
+use casper_types::{
+    account::AccountHash,
+    bytesrepr::Bytes,
+    crypto::{PublicKey, SecretKey},
+    runtime_args,
+    system::{handle_payment::ARG_TARGET, mint::ARG_ID},
+    Key, RuntimeArgs,
+};
 use std::env;
+use std::path::Path;
 
 pub const ADMIN_SECRET_KEY: [u8; 32] = [1u8; 32];
 pub const USER_SECRET_KEY: [u8; 32] = [2u8; 32];
@@ -26,16 +31,14 @@ impl TestContext {
     pub fn new() -> TestContext {
         let mut builder = InMemoryWasmTestBuilder::default();
         builder.run_genesis(&PRODUCTION_RUN_GENESIS_REQUEST);
-        let admin: AccountHash = create_funded_account_for_secret_key_bytes(&mut builder, ADMIN_SECRET_KEY);
-        let user: AccountHash = create_funded_account_for_secret_key_bytes(&mut builder, USER_SECRET_KEY);
-        let market_maker_path: std::path::PathBuf = std::path::Path::new(env!("PATH_TO_WASM_BINARIES"))
-            .join("demo-contract-optimized.wasm");
-        install_wasm_with_args(
-            &mut builder,
-            &market_maker_path,
-            admin,
-            runtime_args! {},
-        );
+        let admin: AccountHash =
+            create_funded_account_for_secret_key_bytes(&mut builder, ADMIN_SECRET_KEY);
+        let user: AccountHash =
+            create_funded_account_for_secret_key_bytes(&mut builder, USER_SECRET_KEY);
+        let market_maker_path: std::path::PathBuf =
+            std::path::Path::new(env!("PATH_TO_WASM_BINARIES"))
+                .join("demo-contract-optimized.wasm");
+        install_wasm_with_args(&mut builder, &market_maker_path, admin, runtime_args! {});
 
         let contract_hash = builder
             .get_expected_account(admin)
@@ -49,7 +52,7 @@ impl TestContext {
         builder
             .get_contract(contract_hash)
             .expect("should have contract");
-    
+
         let contract_package = builder
             .get_expected_account(admin)
             .named_keys()
@@ -67,17 +70,18 @@ impl TestContext {
             contract_package_key: contract_package.into(),
         }
     }
-    
-    pub fn submit_batch(&mut self, payload: Vec<u8>, sender: AccountHash){
-        let session_args: RuntimeArgs = runtime_args!{
+
+    pub fn submit_batch(&mut self, payload: Vec<u8>, sender: AccountHash) {
+        let session_args: RuntimeArgs = runtime_args! {
             "risc0_receipt" => Bytes::from(payload)
         };
         let submit_batch_request = ExecuteRequestBuilder::contract_call_by_hash(
             sender,
             self.contract_hash,
             "submit_batch",
-            session_args
-        ).build();
+            session_args,
+        )
+        .build();
 
         self.builder
             .exec(submit_batch_request)
@@ -95,10 +99,7 @@ pub fn install_wasm_with_args(
     let session_request =
         ExecuteRequestBuilder::standard(user, session_wasm_path.to_str().unwrap(), runtime_args)
             .build();
-    builder
-        .exec(session_request)
-        .expect_success()
-        .commit();
+    builder.exec(session_request).expect_success().commit();
 }
 
 pub fn create_funded_account_for_secret_key_bytes(

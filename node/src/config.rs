@@ -1,6 +1,6 @@
+use log::LevelFilter;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
-use log::LevelFilter;
 use toml;
 
 // Custom serializer function
@@ -34,7 +34,7 @@ where
         "debug" => Ok(LevelFilter::Debug),
         "trace" => Ok(LevelFilter::Trace),
         _ => Ok(LevelFilter::Info),
-    } 
+    }
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -61,12 +61,15 @@ pub struct Node {
     pub dict_uref: String,
     pub secret_key_path: String,
     pub chain_name: String,
-    pub verifier_contract: String
+    pub verifier_contract: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Log {
-    #[serde(deserialize_with = "deserialize_level_filter", serialize_with = "serialize_level_filter")]
+    #[serde(
+        deserialize_with = "deserialize_level_filter",
+        serialize_with = "serialize_level_filter"
+    )]
     pub level: LevelFilter,
     pub file_output: String,
     pub stdout: bool,
@@ -133,8 +136,8 @@ impl Config {
                     dict_uref: "uref-".to_string(),
                     secret_key_path: "/".to_string(),
                     chain_name: "cspr-dev-cctl".to_string(),
-                    verifier_contract: "contract-".to_string()
-                }
+                    verifier_contract: "contract-".to_string(),
+                },
             };
             let toml_string = toml::to_string_pretty(&default_config).unwrap();
             std::fs::write(config_file, toml_string).expect("Failed to write config file");
@@ -143,8 +146,9 @@ impl Config {
 
         // Read config from file
         let config: Config = toml::from_str(
-            &std::fs::read_to_string(config_file).expect("Failed to read config file")
-        ).expect("Failed to parse config file");
+            &std::fs::read_to_string(config_file).expect("Failed to read config file"),
+        )
+        .expect("Failed to parse config file");
 
         config
     }

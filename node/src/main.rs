@@ -1,24 +1,24 @@
-mod domain;
 mod config;
-mod errors;
-mod routes;
 mod database;
+mod domain;
+mod errors;
 mod handlers;
+mod routes;
 mod tasks;
 
-use log;
-use fern;
 use chrono::Utc;
-use tokio::signal;
-use lazy_static::lazy_static;
-use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use deadpool_diesel::postgres::{Manager, Pool};
+use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
+use fern;
+use lazy_static::lazy_static;
+use log;
+use tokio::signal;
 
 use routes::app_router;
 
 extern crate diesel;
 
-#[cfg(feature="delta-tree")]
+#[cfg(feature = "delta-tree")]
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("diesel/delta-tree/migrations");
 
 // Load config
@@ -33,7 +33,8 @@ pub struct AppState {
 #[tokio::main]
 async fn main() {
     // Print ASCII art, because I'm a man-child
-    print!(r#"
+    print!(
+        r#"
 
     :::    :::     :::     ::::::::::: :::::::::   ::::::::   ::::::::  
     :+:   :+:    :+: :+:       :+:     :+:    :+: :+:    :+: :+:    :+: 
@@ -45,7 +46,8 @@ async fn main() {
 
     V: ?
 
-"#);
+"#
+    );
 
     // Setup logging
     fern::Dispatch::new()
@@ -64,8 +66,13 @@ async fn main() {
         } else {
             Box::new(std::io::sink())
         })
-        .chain(fern::log_file(&CONFIG.log.file_output).expect("Error setting up log file, do I have permission to write to that location?."))
-        .apply().expect("Error setting up logging. If log file is enabled, check write permissions.");
+        .chain(
+            fern::log_file(&CONFIG.log.file_output).expect(
+                "Error setting up log file, do I have permission to write to that location?.",
+            ),
+        )
+        .apply()
+        .expect("Error setting up logging. If log file is enabled, check write permissions.");
     log::info!("Kairos starting up!");
 
     // Create database connection pool
@@ -74,9 +81,13 @@ async fn main() {
     match pool.get().await {
         Ok(_conn) => {
             log::info!("Successfully connected to the database!");
-        },
+        }
         Err(_) => {
-            log::error!("Connection to database at {}:{} failed.", CONFIG.db.address, CONFIG.db.port);
+            log::error!(
+                "Connection to database at {}:{} failed.",
+                CONFIG.db.address,
+                CONFIG.db.port
+            );
             return; // Exit the application if the connection fails
         }
     }
@@ -108,7 +119,7 @@ async fn shutdown_signal() {
             .await
             .expect("Failed to install Ctrl+C handler");
     };
-    
+
     let terminate = async {
         signal::unix::signal(signal::unix::SignalKind::terminate())
             .expect("Failed to install signal handler")

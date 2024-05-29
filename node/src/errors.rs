@@ -1,6 +1,6 @@
-use thiserror::Error;
 use axum::{http::StatusCode, response::IntoResponse, response::Response, Json};
 use serde_json::json;
+use thiserror::Error;
 
 use serde::de::value::Error as DeserializeError;
 

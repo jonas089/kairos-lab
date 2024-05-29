@@ -7,11 +7,10 @@ use alloc::{boxed::Box, string::String, vec::Vec};
 use account_trie::{Account, AccountTrie};
 use kairos_trie::{stored::merkle::Snapshot, DigestHasher, NodeHash, TrieRoot};
 use sha2::Sha256;
-use transactions::{KairosTransaction, Deposit, Signed, Withdraw};
+use transactions::{Deposit, KairosTransaction, Signed, Withdraw};
 
 pub mod account_trie;
 pub mod transactions;
-
 
 /// `ProofInputs` contains the minimum logical inputs needed to apply a batch of transactions.
 ///

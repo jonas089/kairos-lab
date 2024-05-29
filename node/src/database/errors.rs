@@ -15,5 +15,5 @@ pub enum DatabaseError {
     #[error("Failed to insert")]
     InsertError(#[from] deadpool_diesel::InteractError),
     #[error("Error in diesel library")]
-    ResultError(#[from] diesel::result::Error)
+    ResultError(#[from] diesel::result::Error),
 }

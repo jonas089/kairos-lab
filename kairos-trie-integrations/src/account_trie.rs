@@ -3,7 +3,7 @@ use alloc::{boxed::Box, format, string::String, vec::Vec};
 
 use sha2::{digest::FixedOutputReset, Digest, Sha256};
 
-use crate::transactions::{KairosTransaction, Deposit, PublicKey, Signed, Transfer, Withdraw};
+use crate::transactions::{Deposit, KairosTransaction, PublicKey, Signed, Transfer, Withdraw};
 use kairos_trie::{
     stored::{
         merkle::{Snapshot, SnapshotBuilder},
@@ -291,7 +291,10 @@ pub mod test_logic {
                 deposits: _,
                 withdrawals: _,
             } = proving_hook(proof_inputs).expect("Failed to prove execution");
-            println!("Previous root: {:?}, New Root: {:?}", &pre_batch_trie_root, &post_batch_trie_root);
+            println!(
+                "Previous root: {:?}, New Root: {:?}",
+                &pre_batch_trie_root, &post_batch_trie_root
+            );
             assert_eq!(pre_batch_trie_root, prior_root_hash);
             assert_eq!(post_batch_trie_root, new_root_hash);
             prior_root_hash = new_root_hash;
