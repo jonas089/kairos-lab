@@ -20,6 +20,7 @@ use utils::events::Deposit;
 use utils::get_immediate_caller;
 use risc0_zkvm::Receipt;
 use serde_json_wasm::{from_slice};
+use kairos_trie_integrations::ProofOutputs;
 
 // This entry point is called once when the contract is installed.
 // The contract purse will be created in contract context so that it is "owned" by the contract
@@ -92,7 +93,7 @@ pub extern "C" fn submit_batch(){
         // replace ApiError with meaningful UserError
         Err(_) => runtime::revert(ApiError::InvalidArgument)
     };
-    // let journal = proof.receipt.journal.decode().unwrap();
+    let journal: ProofOutputs = serde_json_wasm::from_slice(&proof.receipt.journal.bytes).unwrap();
     // todo: update root
 }
 
