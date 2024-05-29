@@ -16,6 +16,8 @@ use deadpool_diesel::postgres::{Manager, Pool};
 
 use routes::app_router;
 
+extern crate diesel;
+
 #[cfg(feature="delta-tree")]
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("diesel/delta-tree/migrations");
 
@@ -81,7 +83,7 @@ async fn main() {
 
     // Apply database migrations
     // run_migrations(&pool).await;
-    log::debug!("Ran database migrations!");
+    // log::debug!("Ran database migrations!");
 
     // Setup application state
     let state = AppState { pool: pool.clone() };

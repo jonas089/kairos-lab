@@ -1,5 +1,5 @@
 use deadpool_diesel::postgres::Pool;
-use crate::domain::models::deposits;
+// use crate::domain::models::deposits;
 use bigdecimal::BigDecimal;
 use chrono::{Utc, NaiveDateTime};
 use tokio::time::{sleep, Duration};

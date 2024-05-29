@@ -10,9 +10,6 @@ use axum_otel_metrics::HttpMetricsLayerBuilder;
 
 use crate::AppState;
 
-#[cfg(feature="delta-tree")]
-use crate::handlers::delta_tree::routes::delta_tree_routes;
-
 // import API endpoints for delta tree if building for delta-tree
 // #[cfg(feature="delta-tree")]
 // use crate::handlers::delta_tree::{};
@@ -25,10 +22,7 @@ pub fn app_router() -> Router<AppState> {
     router = router.route("/ping", get(ping));
         
 
-    #[cfg(feature="delta-tree")]
-    {
-        router = router.nest("/api/delta",delta_tree_routes());
-    }
+    router = router.nest("/api/trie", crate::handlers::trie::routes::trie_routes());
 
     // add 404 error handler
     router = router.fallback(handler_404);

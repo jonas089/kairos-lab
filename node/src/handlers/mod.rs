@@ -1,1 +1,1 @@
-pub mod avi_trie;
+pub mod trie;
