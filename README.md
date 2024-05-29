@@ -12,7 +12,7 @@ The environment will stay running after test execution ends until explicitly sto
 ### Setting up Risc0
 
 ```
-cargo binstall cargo-risczero@1.0.0-rc.5
+cargo binstall cargo-risczero
 cargo risczero install
 ```
 
@@ -20,7 +20,7 @@ To verify the installation:
 
 ```
 cargo risczero --version 
-(should be 1.0.0-rc.5)
+(should be 0.21.0)
 rustup toolchain list 
 (should have 'risc0')
 ```

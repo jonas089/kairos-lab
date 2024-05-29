@@ -19,7 +19,7 @@ use utils::errors::DepositError;
 use utils::events::Deposit;
 use utils::get_immediate_caller;
 use risc0_zkvm::Receipt;
-use borsh::{BorshSerialize, BorshDeserialize, from_slice};
+use serde_json_wasm::{from_slice};
 
 // This entry point is called once when the contract is installed.
 // The contract purse will be created in contract context so that it is "owned" by the contract
@@ -77,7 +77,7 @@ pub extern "C" fn deposit() {
     casper_event_standard::emit(new_deposit_record);
 }
 
-#[derive(Debug, BorshSerialize, BorshDeserialize)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct Proof {
     pub receipt: Receipt,
     pub program_id: [u32;8],

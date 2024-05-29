@@ -9,11 +9,11 @@ casper-execution-engine = {version="7.0.0", default-features=false}
 casper-contract = {version="4.0.0", default-features=false}
 casper-types = {version="4.0.1", default-features=false}
 base64 = { version = "0.21.2", default-features = false, features = ["alloc"] }
-risc0-zkvm = {git="https://github.com/jonas089/risc0-borsh"}
+risc0-zkvm = "0.21"
 serde = {version="1", default-features=false, features=["derive"]}
+serde-json-wasm = "1"
 rand = "0.8"
 kairos-trie-integrations = {path="../../kairos-trie-integrations", features=["serde"]}
 kairos-trie = {git="https://github.com/cspr-rad/kairos-trie", default-features=false, features=["serde"]}
 circuits = {path="../../kairos-risc0-trie/methods"}
-borsh = {version="1.5.0", features=["derive"]}
 sha2 = {version = "0.10", default-features = false}

@@ -1,6 +1,6 @@
 use risc0_zkvm::Receipt;
-use borsh;
-#[derive(Debug, borsh::BorshSerialize, borsh::BorshDeserialize)]
+use serde::{Serialize, Deserialize};
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Proof {
     pub receipt: Receipt,
     pub program_id: [u32;8],
@@ -9,6 +9,7 @@ pub struct Proof {
 #[cfg(test)]
 mod tests {
     use crate::test_fixture::TestContext;  
+    use serde_json_wasm::to_vec;
     use super::Proof; 
     #[test]
     fn should_install_contracts() {
@@ -18,7 +19,7 @@ mod tests {
     fn submit_proof(){
         let mut fixture = TestContext::new();
         let proof: Proof = generate_proof();
-        fixture.submit_batch(borsh::to_vec(&proof).unwrap(), fixture.admin);
+        fixture.submit_batch(to_vec(&proof).unwrap(), fixture.admin);
     }
     fn generate_proof() -> Proof{
         extern crate alloc;
@@ -82,7 +83,7 @@ mod tests {
     
         let receipt = risc0_zkvm::default_prover()
             .prove(env, PROVE_BATCH_ELF)
-            .map_err(|e| format!("Error in risc0_zkvm prove: {e}")).unwrap().receipt;
+            .map_err(|e| format!("Error in risc0_zkvm prove: {e}")).unwrap();
     
         receipt.verify(PROVE_BATCH_ID).expect("Failed to verify proof!");
     
