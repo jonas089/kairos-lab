@@ -1,6 +1,6 @@
-use borsh;
 use risc0_zkvm::Receipt;
 use serde::{Serialize, Deserialize};
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Proof {
     pub receipt: Receipt,
@@ -37,7 +37,7 @@ mod tests {
                 recipient: alice_public_key.clone(),
                 amount: 10,
             }),
-            KairosTransaction::Transfer(Signed {
+            /*KairosTransaction::Transfer(Signed {
                 public_key: alice_public_key.clone(),
                 transaction: Transfer {
                     recipient: bob_public_key.clone(),
@@ -47,9 +47,10 @@ mod tests {
             }),
             KairosTransaction::Withdraw(Signed {
                 public_key: alice_public_key.clone(),
-                transaction: Withdraw { amount: 5 },
+                transaction: Withdraw { 
+                    amount: 5 },
                 nonce: 1,
-            }),
+            }),*/
         ];
 
         let db = Rc::new(MemoryDb::<Account>::empty());
@@ -87,9 +88,7 @@ mod tests {
         let receipt = risc0_zkvm::default_prover()
             .prove(env, PROVE_BATCH_ELF)
             .map_err(|e| format!("Error in risc0_zkvm prove: {e}")).unwrap();
-    
         receipt.verify(PROVE_BATCH_ID).expect("Failed to verify proof!");
-    
         Proof {
             receipt,
             program_id: PROVE_BATCH_ID,

@@ -9,7 +9,6 @@ casper-types = { version = "4.0.1", default-features = false }
 casper-event-standard = { version = "0.5.0", default-features = false }
 serde = {version="1", default-features=false, features=["derive"]}
 risc0-zkvm = {version="0.21", default-features=false}#{ version="0.21.0", default-features=false }
-borsh = {version="1.5.0", default-features=false, features=["derive"]}
 serde-json-wasm = "1"
 kairos-trie-integrations = {path="../../../kairos-trie-integrations", features=["serde"]}
 
